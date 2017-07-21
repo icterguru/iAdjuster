@@ -1,0 +1,31 @@
+body, html {
+  margin: 0;
+  padding: 0;
+
+}
+
+video{
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  min-width: 50%;
+  min-height: 50;
+  min-width: 50%;
+  min-height: 50%;
+  width: auto;
+  height: auto;
+  z-index: 1
+}
+
+.text{
+  z-index: 2;
+  position: absolute;;
+  background: rgba(200, 0, 0, 0.5);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+
+}

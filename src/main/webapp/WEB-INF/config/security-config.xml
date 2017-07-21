@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+
+	<!-- Here the security has been made as default and so :beans is added into 
+		the beans More at: https://app.pluralsight.com/player?course=spring-security-fundamentals&author=bryan-hansen&name=springsec-fundamentals-m3-first-app&clip=9&mode=live -->
+
+
+	<http auto-config="true">
+		<intercept-url pattern="/**" access="ROLE_USER" />
+	</http>
+
+
+	<!-- This is for in memory usernme and password setup <authentication-manager> 
+		<authentication-provider> <user-service> <user name="iA" password="iA" authorities="ROLE_USER" 
+		/> <user name="mokter" password="M0kter" authorities="ROLE_USER" /> <user 
+		name="rakib" password="R@kib" authorities="ROLE_USER" /> <user name="carter" 
+		password="C@rter" authorities="ROLE_USER" /> </user-service> </authentication-provider> 
+		</authentication-manager> -->
+
+	<!-- This is for database usernme and password setup -->
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder hash="bcrypt" />
+			<!-- BCrypt is more secured than <password-encoder hash="md5" /> -->
+			<jdbc-user-service data-source-ref="dataSource" />
+		</authentication-provider>
+	</authentication-manager>
+
+
+	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+
+		<!-- <beans:property name="url" value="jdbc:mysql://localhost:3306/iAdjuster" 
+			/> <beans:property name="username" value="root" /> <beans:property name="password" 
+			value="password" /> -->
+
+		<beans:property name="url"
+			value="jdbc:mysql://iadjustertest.can6aqqzvhtp.us-west-2.rds.amazonaws.com:3306/iadjustertest" />
+		<beans:property name="username" value="iadjustertest" />
+		<beans:property name="password" value="iadjustertest" />
+
+		
+		
+<!-- The url value's localhost:3306  is replaced by:  
+iadjustertest.can6aqqzvhtp.us-west-2.rds.amazonaws.com:3306
+
+This is found on AWS RDB Dashboard's DB Instance window's Endpoint as follows: 
+
+Endpoint: iadjustertest.can6aqqzvhtp.us-west-2.rds.amazonaws.com:3306
+Or in MySQL JDBC Connection: jdbc:mysql://iadjustertest.can6aqqzvhtp.us-west-2.rds.amazonaws.com:3306/?user=iadjustertest
+
+ -->		
+		
+	</beans:bean>
+
+
+</beans:beans>
