@@ -6,9 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-
 public class ActivityRespoitoryImpl implements ActivityRepository {
 
 	private static Connection connection;
